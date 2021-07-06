@@ -23,9 +23,5 @@ public class Camera_Handler : MonoBehaviour
     {
         transform.position = target.position + cameraOffset;
     }
-
-    public void SetCameraTarget(Transform currentTarget)
-    {
-        target = currentTarget;
-    }
+    public void SetCameraTarget(Transform currentTarget){target = currentTarget;}
 }
