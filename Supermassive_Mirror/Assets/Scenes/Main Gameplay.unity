@@ -277,6 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skyboxRotationSpeed: 1.5
+  target: {fileID: 3436835551815905759, guid: 41942809aac98754fb61464078948909, type: 3}
 --- !u!1 &1661809162
 GameObject:
   m_ObjectHideFlags: 0
