@@ -22,6 +22,5 @@ public class Star_Spawner : MonoBehaviour
                                                       Random.Range(-spawnRange, spawnRange), 0f),
                                                       Quaternion.identity) as GameObject;
         gObj.transform.parent = gameObject.transform;
-        gObj.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
     }
 }
