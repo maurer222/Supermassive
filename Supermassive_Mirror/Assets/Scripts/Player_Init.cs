@@ -9,8 +9,8 @@ public class Player_Init : MonoBehaviour
     private void Start()
     {
         Camera.main.GetComponent<Camera_Handler>().SetCameraTarget(gameObject.transform);
-
-        //TODO Set the players skin if it is not the default
         gameObject.GetComponent<Renderer>().material = playerMaterial;
+
+        //TODO Allow player to choose a skin and set it on their player object
     }
 }
