@@ -29,8 +29,6 @@ public class Gravity : MonoBehaviour
 
         foreach (Collider collider in hitColliders)
         {
-            Debug.Log(collider);
-
             //get the mass of the object in range
             Mass otherMass = collider.GetComponent<Mass>();
 
