@@ -7,13 +7,9 @@ public class Mass : NetworkBehaviour
 {
     private float currentMass;
     private float incomingMass;
-    private HUD_Manager HUD;
-    private Mass myMass;
 
     private void Start()
     {
-        HUD = GameObject.Find("Canvas").GetComponent<HUD_Manager>();
-        myMass = gameObject.GetComponent<Mass>();
 
         if (gameObject.name.Contains("Player"))
         {
@@ -49,8 +45,6 @@ public class Mass : NetworkBehaviour
         Vector3 smoothedMass = Vector3.Lerp(transform.localScale, targetMass * .5f, .01f * Time.deltaTime);
         currentMass += .7f * Time.deltaTime;
         transform.localScale = smoothedMass;
-        HUD.SetUICurrentMassText(myMass);
-        HUD.SetUIIncomingMassText(myMass);
     }
 
     public float GetMass()

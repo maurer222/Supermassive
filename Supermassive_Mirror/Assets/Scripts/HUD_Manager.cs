@@ -9,6 +9,11 @@ public class HUD_Manager : MonoBehaviour
     private float incomingMass;
     private int remainingStars;
 
+    private void Update()
+    {
+        SetUIRemainingStarsText();
+    }
+
     public void SetUICurrentMassText(Mass mass)
     {
         currentMass = mass.GetMass();
