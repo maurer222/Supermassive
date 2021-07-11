@@ -38,6 +38,6 @@ public class HUD_Manager : MonoBehaviour
     public void SetUIRemainingStarsText()
     {
         remainingStars = FindObjectOfType<Star_Spawner>().transform.childCount;
-       remainingStarsText.text = "Remaining Stars: " + remainingStars.ToString();
+        remainingStarsText.text = "Remaining Stars: " + remainingStars.ToString();
     }
 }
