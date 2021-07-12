@@ -1,18 +1,21 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUD_Manager : MonoBehaviour
+public class HUD_Manager : NetworkBehaviour
 {
     private float currentMass;
     private float incomingMass;
     private int remainingStars;
+    private GameObject starSpawner;
     private Text currentMassText;
     private Text incomingMassText;
     private Text remainingStarsText;
     private void Start()
     {
+        starSpawner = GameObject.Find("Star Spawner");
         currentMassText = GameObject.Find("Current Mass").GetComponent<Text>();
         incomingMassText = GameObject.Find("Incoming Mass").GetComponent<Text>();
         remainingStarsText = GameObject.Find("Remaining Stars").GetComponent<Text>();
@@ -37,7 +40,7 @@ public class HUD_Manager : MonoBehaviour
 
     public void SetUIRemainingStarsText()
     {
-        remainingStars = FindObjectOfType<Star_Spawner>().transform.childCount;
+        remainingStars = starSpawner.transform.childCount;
         remainingStarsText.text = "Remaining Stars: " + remainingStars.ToString();
     }
 }

@@ -13,7 +13,7 @@ public class Player_Movement : NetworkBehaviour
         {
             PlayerMovement();
         }
-        if (isClient)
+        else if (isClient)
         {
             CmdClientMove();
         }
@@ -22,10 +22,9 @@ public class Player_Movement : NetworkBehaviour
     private void PlayerMovement()
     {
         if (!hasAuthority) { return; }
-
+        
         if (isLocalPlayer)
         {
-            Debug.Log("Server moving");
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
             Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0);
