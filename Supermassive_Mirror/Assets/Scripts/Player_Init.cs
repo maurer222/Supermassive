@@ -11,9 +11,9 @@ public class Player_Init : NetworkBehaviour
 
     private void Start()
     {
+        gameObject.GetComponent<Camera>().enabled = true;
         myMass = gameObject.GetComponent<Mass>();
         HUD = GameObject.Find("Canvas").GetComponent<HUD_Manager>();
-        Camera.main.GetComponent<Camera_Handler>().SetCameraTarget(gameObject.transform);
         gameObject.GetComponent<Renderer>().material = playerMaterial;
         HUD.SetUICurrentMassText(myMass);
         HUD.SetUIIncomingMassText(myMass);

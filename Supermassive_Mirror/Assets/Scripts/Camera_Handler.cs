@@ -10,6 +10,8 @@ public class Camera_Handler : MonoBehaviour
 
     private void Start()
     {
+        GameObject.Find("Opening Camera").SetActive(false);
+        SetCameraTarget(gameObject.transform);
         cameraOffset = new Vector3(0, 0, -10);
     }
 
