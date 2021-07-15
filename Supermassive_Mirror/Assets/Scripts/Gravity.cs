@@ -56,7 +56,7 @@ public class Gravity : MonoBehaviour
     {
         Mass otherMass = collision.GetComponent<Mass>();
 
-        if (collision.gameObject.name.Contains("Star") && (otherMass.GetMass() < myMass.GetMass()))
+        if (collision.gameObject.name.Contains("Star"))
         {
             myMass.SetIncomingMass(otherMass.GetMass());
             Destroy(collision.gameObject);
