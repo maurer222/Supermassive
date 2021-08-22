@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera_Handler : MonoBehaviour
+public class Camera_Handler : NetworkBehaviour
 {
     [SerializeField] float skyboxRotationSpeed = 1.5f;
     [SerializeField] Transform target;
@@ -10,20 +11,16 @@ public class Camera_Handler : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Camera Start");
         GameObject.Find("Opening Camera").SetActive(false);
-        SetCameraTarget(gameObject.transform);
+        SetCameraTarget(target);
         cameraOffset = new Vector3(0, 0, -10);
     }
 
     void Update()
     {
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * skyboxRotationSpeed);
-        CameraTargetFollow();
     }
 
-    void CameraTargetFollow()
-    {
-        transform.position = target.position + cameraOffset;
-    }
     public void SetCameraTarget(Transform currentTarget){target = currentTarget;}
 }

@@ -16,7 +16,7 @@ public class Player_Movement : NetworkBehaviour
         else if (isClient)
         {
             CmdClientMove();
-        }
+        } 
     }
 
     private void PlayerMovement()

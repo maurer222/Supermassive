@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,10 @@ public class Mass : NetworkBehaviour
 {
     private float currentMass;
     private float incomingMass;
+    public event EventHandler OnMassChanged;
 
     private void Start()
     {
-
         if (gameObject.name.Contains("Player"))
         {
             currentMass = 1.2f;
@@ -19,7 +20,7 @@ public class Mass : NetworkBehaviour
         }
         if (gameObject.name.Contains("Star"))
         {
-            currentMass = Random.Range(.003f, .2f);
+            currentMass = UnityEngine.Random.Range(.003f, .2f);
             incomingMass = currentMass;
             transform.localScale = new Vector3(currentMass, currentMass, currentMass);
         }
@@ -29,11 +30,12 @@ public class Mass : NetworkBehaviour
             incomingMass = currentMass;
             transform.localScale = Vector3.one;
         }
+        if(isLocalPlayer){ FindObjectOfType<HUD_Manager>().SetMassReference(this); }
     }
 
     private void Update()
     {
-        if (gameObject.name.Contains("Player") && (currentMass < incomingMass))
+        if (gameObject.name.Contains("Player") && (currentMass < incomingMass) && isLocalPlayer)
         {
             SmoothSizeIncrease();
         }
@@ -55,6 +57,7 @@ public class Mass : NetworkBehaviour
     public void SetMass(float mass)
     {
         currentMass += mass;
+        OnMassChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public float GetIncomingMass()
@@ -65,5 +68,6 @@ public class Mass : NetworkBehaviour
     public void SetIncomingMass(float incMass)
     {
         incomingMass += incMass;
+        OnMassChanged?.Invoke(this, EventArgs.Empty);
     }
 }

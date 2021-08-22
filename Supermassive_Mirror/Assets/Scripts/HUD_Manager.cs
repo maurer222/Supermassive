@@ -13,6 +13,8 @@ public class HUD_Manager : NetworkBehaviour
     private Text currentMassText;
     private Text incomingMassText;
     private Text remainingStarsText;
+    private Mass mass;
+
     private void Start()
     {
         starSpawner = GameObject.Find("Star Spawner");
@@ -21,19 +23,30 @@ public class HUD_Manager : NetworkBehaviour
         remainingStarsText = GameObject.Find("Remaining Stars").GetComponent<Text>();
     }
 
-    private void Update()
+    public void SetMassReference(Mass mass)
     {
-        SetUIRemainingStarsText();
+        mass.OnMassChanged += Mass_OnMassChanged;
+        this.mass = mass;
     }
 
-    public void SetUICurrentMassText(Mass mass)
+    private void Mass_OnMassChanged(object sender, System.EventArgs e)
     {
+        SetUICurrentMassText();
+        SetUIIncomingMassText();
+    }
+
+    private void Update(){ SetUIRemainingStarsText();}
+
+    public void SetUICurrentMassText()
+    {
+        Debug.Log(mass + " current");
         currentMass = ((int)(mass.GetMass() * 100))/100.0f;
         currentMassText.text = "Current Mass: " + currentMass.ToString();
     }
 
-    public void SetUIIncomingMassText(Mass mass)
+    public void SetUIIncomingMassText()
     {
+        Debug.Log(mass + " incoming");
         incomingMass = ((int)(mass.GetIncomingMass() * 100)) / 100.0f;
         incomingMassText.text = "Incoming Mass: " + incomingMass.ToString();
     }
@@ -43,4 +56,5 @@ public class HUD_Manager : NetworkBehaviour
         remainingStars = starSpawner.transform.childCount;
         remainingStarsText.text = "Remaining Stars: " + remainingStars.ToString();
     }
+    private void OnDestroy() { mass.OnMassChanged -= Mass_OnMassChanged; }
 }
