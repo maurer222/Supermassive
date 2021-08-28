@@ -8,7 +8,7 @@ public class Scene_Manager : MonoBehaviour
 
     public void Awake()
     {
-        if(_instance != null && _instance != this) { Destroy(this.gameObject); }
+        if (_instance != null && _instance != this) { Destroy(this.gameObject); }
         else { _instance = this; }
     }
     public void LoadStartMenuScene()

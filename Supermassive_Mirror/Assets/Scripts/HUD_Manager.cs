@@ -1,8 +1,7 @@
-using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUD_Manager : NetworkBehaviour
+public class HUD_Manager : MonoBehaviour
 {
     private float currentMass;
     private float incomingMass;
@@ -37,14 +36,12 @@ public class HUD_Manager : NetworkBehaviour
 
     public void SetUICurrentMassText()
     {
-        Debug.Log(mass + " current");
         currentMass = ((int)(mass.GetMass() * 100))/100.0f;
         currentMassText.text = "Current Mass: " + currentMass.ToString();
     }
 
     public void SetUIIncomingMassText()
     {
-        Debug.Log(mass + " incoming");
         incomingMass = ((int)(mass.GetIncomingMass() * 100)) / 100.0f;
         incomingMassText.text = "Incoming Mass: " + incomingMass.ToString();
     }

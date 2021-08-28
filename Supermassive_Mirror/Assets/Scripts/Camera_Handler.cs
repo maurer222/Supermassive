@@ -11,7 +11,6 @@ public class Camera_Handler : NetworkBehaviour
 
     private void Start()
     {
-        Debug.Log("Camera Start");
         GameObject.Find("Opening Camera").SetActive(false);
         SetCameraTarget(target);
         cameraOffset = new Vector3(0, 0, -10);
