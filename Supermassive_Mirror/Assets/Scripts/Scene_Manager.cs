@@ -11,21 +11,9 @@ public class Scene_Manager : MonoBehaviour
         if (_instance != null && _instance != this) { Destroy(this.gameObject); }
         else { _instance = this; }
     }
-    public void LoadStartMenuScene()
-    {
-        SceneManager.LoadScene(0);
-    }
     public void LoadMainGameplayScene()
     {
         SceneManager.LoadScene(1);
-    }
-    public void LoadSettingScene()
-    {
-        SceneManager.LoadScene(2);
-    }
-    public void LoadCreditScene()
-    {
-        SceneManager.LoadScene(3);
     }
     public void ExitGame()
     {

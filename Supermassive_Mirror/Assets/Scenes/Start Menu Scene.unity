@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 224553367}
         m_TargetAssemblyTypeName: Resolution_Controller, Assembly-CSharp
         m_MethodName: SetResolution720p
         m_Mode: 1
@@ -3376,7 +3376,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 224553367}
         m_TargetAssemblyTypeName: Resolution_Controller, Assembly-CSharp
         m_MethodName: SetResolution480p
         m_Mode: 1
@@ -3553,7 +3553,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 224553367}
         m_TargetAssemblyTypeName: Resolution_Controller, Assembly-CSharp
         m_MethodName: SetResolution1080p
         m_Mode: 1
