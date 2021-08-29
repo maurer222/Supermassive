@@ -1,6 +1,4 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Star_Spawner : NetworkBehaviour
@@ -19,9 +17,13 @@ public class Star_Spawner : NetworkBehaviour
 
     public void SpawnStar()
     {
-        GameObject gObj = Instantiate(starPrefab, new Vector3(Random.Range(-spawnRange, spawnRange),
-                                                      Random.Range(-spawnRange, spawnRange), 0f),
-                                                      Quaternion.identity) as GameObject;
-        gObj.transform.parent = gameObject.transform;
+        if (isServer)
+        {
+            GameObject gObj = Instantiate(starPrefab, new Vector3(Random.Range(-spawnRange, spawnRange),
+                                                          Random.Range(-spawnRange, spawnRange), 0f),
+                                                          Quaternion.identity) as GameObject;
+            gObj.transform.parent = gameObject.transform;
+            NetworkServer.Spawn(gObj.gameObject);
+        }
     }
 }
