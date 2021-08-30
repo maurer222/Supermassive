@@ -45,6 +45,7 @@ public class Mass : NetworkBehaviour
         Vector3 smoothedMass = Vector3.Lerp(transform.localScale, targetMass * .5f, .01f * Time.deltaTime);
         currentMass += .7f * Time.deltaTime;
         transform.localScale = smoothedMass;
+        OnMassChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public float GetMass()
