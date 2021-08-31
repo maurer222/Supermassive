@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
@@ -13,7 +11,7 @@ public class Player_Movement : NetworkBehaviour
         {
             PlayerMovement();
         }
-        else if (isClient)
+        else if (isClientOnly)
         {
             CmdClientMove();
         } 
@@ -42,11 +40,13 @@ public class Player_Movement : NetworkBehaviour
     [ClientRpc]
     private void RpcMove()
     {
-        Debug.Log("Client moving");
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0);
-        transform.position += movement * moveSpeed * Time.deltaTime;
+        if (isLocalPlayer)
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0);
+            transform.position += movement * moveSpeed * Time.deltaTime;
+        }
     }
 
     public void SetMoveSpeed(float newSpeed){moveSpeed = newSpeed;}
