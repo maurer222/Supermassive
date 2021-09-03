@@ -3,28 +3,25 @@ using UnityEngine;
 
 public class Star_Spawner : NetworkBehaviour
 {
-    public int starCount;
-    public GameObject starPrefab;
-    public float spawnRange;
+    [SerializeField] int starCount;
+    [SerializeField] GameObject starPrefab;
+    [SerializeField] float spawnRange;
 
     void Start()
     {
         if (!isServer) return;
 
-        if (isLocalPlayer)
+        for (int i = 0; i < starCount; i++)
         {
-            for (int i = 0; i < starCount; i++)
-            {
-                SpawnStar();
-            }
+            SpawnStar();
         }
     }
 
     public void SpawnStar()
-    {  
-        GameObject gObj = Instantiate(starPrefab, new Vector3(Random.Range(-spawnRange, spawnRange),
-                                                        Random.Range(-spawnRange, spawnRange), 0f),
-                                                        Quaternion.identity);
+    {
+        GameObject gObj = (GameObject)Instantiate(starPrefab, new Vector3(Random.Range(-spawnRange, spawnRange),
+                              Random.Range(-spawnRange, spawnRange), 0f),
+                              Quaternion.identity);
         gObj.transform.parent = gameObject.transform;
         NetworkServer.Spawn(gObj);
     }

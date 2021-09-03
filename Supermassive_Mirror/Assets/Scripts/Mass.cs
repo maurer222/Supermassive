@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Mass : NetworkBehaviour
 {
+    [SyncVar]
     private float currentMass;
+    [SyncVar]
     private float incomingMass;
     public event EventHandler OnMassChanged;
 

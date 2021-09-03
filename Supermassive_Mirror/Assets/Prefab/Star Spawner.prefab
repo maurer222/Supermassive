@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4301524914845629827}
   - component: {fileID: 1243111856400135041}
+  - component: {fileID: 4284007000086505105}
   m_Layer: 0
   m_Name: Star Spawner
   m_TagString: Untagged
@@ -48,3 +49,26 @@ MonoBehaviour:
   starCount: 200
   starPrefab: {fileID: 3911936324855068303, guid: b1a25032650969e41b6cc8f96d2bf39f, type: 3}
   spawnRange: 25
+--- !u!114 &4284007000086505105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221491762504017185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  interpolateRotation: 1
+  interpolatePosition: 1
+  syncScale: 1
