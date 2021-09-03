@@ -11,9 +11,12 @@ public class Star_Spawner : NetworkBehaviour
     {
         if (!isServer) return;
 
-        for (int i = 0; i < starCount; i++)
+        if (isLocalPlayer)
         {
-            SpawnStar();
+            for (int i = 0; i < starCount; i++)
+            {
+                SpawnStar();
+            }
         }
     }
 
@@ -21,7 +24,7 @@ public class Star_Spawner : NetworkBehaviour
     {  
         GameObject gObj = Instantiate(starPrefab, new Vector3(Random.Range(-spawnRange, spawnRange),
                                                         Random.Range(-spawnRange, spawnRange), 0f),
-                                                        Quaternion.identity) as GameObject;
+                                                        Quaternion.identity);
         gObj.transform.parent = gameObject.transform;
         NetworkServer.Spawn(gObj);
     }
