@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Gravity : MonoBehaviour
+public class Gravity : NetworkBehaviour
 {
     Mass myMass;
     [SerializeField] float gravityRangeMultiplier = 2;
@@ -66,7 +67,19 @@ public class Gravity : MonoBehaviour
             //FindObjectOfType<Canvas>().GetComponent<HUDManager>().UpdateCurrentAntimatter();
             myMass.SetMass(otherMass.GetMass() * (myMass.GetMass() * .05f));
             myMass.SetIncomingMass(otherMass.GetMass() * (myMass.GetIncomingMass() * .05f));
-            Destroy(collision.gameObject);
+            CmdDestroyStar(collision);
         }
+    }
+
+    [Command]
+    void CmdDestroyStar(Collider collision)
+    {
+        RPCDestroyStar(collision);
+    }
+
+    [ClientRpc]
+    void RPCDestroyStar(Collider collision)
+    {
+        NetworkServer.Destroy(collision.gameObject);
     }
 }
