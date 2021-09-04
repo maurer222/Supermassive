@@ -16,6 +16,21 @@ public class Gravity : NetworkBehaviour
 
     private void Update()
     {
+        if(isClient)
+        {
+            RPCGravity();
+        }
+    }
+
+    [ClientRpc]
+    void RPCGravity()
+    {
+        CmdGravity();
+    }
+
+    [Command]
+    void CmdGravity()
+    {
         GravityEffect();
     }
 
@@ -67,19 +82,19 @@ public class Gravity : NetworkBehaviour
             //FindObjectOfType<Canvas>().GetComponent<HUDManager>().UpdateCurrentAntimatter();
             myMass.SetMass(otherMass.GetMass() * (myMass.GetMass() * .05f));
             myMass.SetIncomingMass(otherMass.GetMass() * (myMass.GetIncomingMass() * .05f));
-            CmdDestroyStar(collision);
+            CmdDestroyStar(collision.gameObject);
         }
     }
 
     [Command]
-    void CmdDestroyStar(Collider collision)
+    void CmdDestroyStar(GameObject star)
     {
-        RPCDestroyStar(collision);
+        RPCDestroyStar(star);
     }
 
     [ClientRpc]
-    void RPCDestroyStar(Collider collision)
+    void RPCDestroyStar(GameObject star)
     {
-        NetworkServer.Destroy(collision.gameObject);
+        NetworkServer.Destroy(star.gameObject);
     }
 }
