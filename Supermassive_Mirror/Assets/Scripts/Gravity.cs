@@ -14,7 +14,7 @@ public class Gravity : NetworkBehaviour
         myMass = GetComponent<Mass>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(isClient)
         {

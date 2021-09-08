@@ -51,5 +51,5 @@ public class HUD_Manager : MonoBehaviour
         remainingStars = starSpawner.transform.childCount;
         remainingStarsText.text = "Remaining Stars: " + remainingStars.ToString();
     }
-    private void OnDestroy() { mass.OnMassChanged -= Mass_OnMassChanged; }
+    private void OnDestroy() { if(mass != null) mass.OnMassChanged -= Mass_OnMassChanged; }
 }

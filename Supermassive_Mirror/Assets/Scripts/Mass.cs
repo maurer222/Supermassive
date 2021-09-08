@@ -8,6 +8,7 @@ public class Mass : NetworkBehaviour
     private float currentMass;
     [SyncVar]
     private float incomingMass;
+
     public event EventHandler OnMassChanged;
 
     private void Start()
@@ -37,8 +38,20 @@ public class Mass : NetworkBehaviour
     {
         if (gameObject.name.Contains("Player") && (currentMass < incomingMass) && isLocalPlayer)
         {
-            SmoothSizeIncrease();
+            CmdSmoothSizeIncrease();
         }
+    }
+
+    [Command]
+    void CmdSmoothSizeIncrease()
+    {
+        RPCSmoothSizeIncrease();
+    }
+
+    [ClientRpc]
+    void RPCSmoothSizeIncrease()
+    {
+        SmoothSizeIncrease();
     }
 
     void SmoothSizeIncrease()

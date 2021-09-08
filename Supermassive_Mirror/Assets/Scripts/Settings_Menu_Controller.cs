@@ -6,8 +6,8 @@ public class Settings_Menu_Controller : MonoBehaviour
 
     private void Start()
     {
-        settingMenu = GameObject.Find("Settings Menu Panel");
-        settingMenu.SetActive(false);
+        //settingMenu = GameObject.Find("Settings Menu Panel");
+        //settingMenu.SetActive(false);
     }
 
     public void OpenSettingsMenu()
