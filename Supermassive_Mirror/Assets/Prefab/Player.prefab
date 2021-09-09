@@ -214,3 +214,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7393d898001af0e43bed3eaefa321044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  breakpoint1: 15
+  breakpoint2: 30
+  breakpoint3: 50
+  breakpoint4: 100
+  abilityKey1: 49
+  abilityKey2: 50
+  abilityKey3: 51
+  abilityKey4: 52
+  ability1CooldownTimeMax: 2
+  ability2CooldownTimeMax: 20
+  ability3CooldownTimeMax: 45
+  ability4CooldownTimeMax: 60
