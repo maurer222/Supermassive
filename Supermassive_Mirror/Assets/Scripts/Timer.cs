@@ -1,17 +1,15 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] float timerStartValue;
-    [SerializeField] TMP_Text timerText;
+    private TMP_Text timerText;
     private float timeRemaining;
 
     private void Start()
     {
         ResetCountDownTimer();
-        timerStartValue = 30;
         timerText = this.GetComponent<TMP_Text>();
     }
 
@@ -24,7 +22,7 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            //ResetCountDownTimer();
+            ResetCountDownTimer();
         }
     }
     public void ResetCountDownTimer()

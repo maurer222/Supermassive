@@ -572,6 +572,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 446224823, guid: fa1f2ba42d853d941960994985c25b34, type: 3}
+      propertyPath: timerStartValue
+      value: 60.9
+      objectReference: {fileID: 0}
     - target: {fileID: 73807100327170791, guid: fa1f2ba42d853d941960994985c25b34, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -664,6 +668,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4565338951404384264, guid: fa1f2ba42d853d941960994985c25b34, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 539403503}
     - target: {fileID: 4565338951404384267, guid: fa1f2ba42d853d941960994985c25b34, type: 3}
       propertyPath: m_Name
       value: Canvas

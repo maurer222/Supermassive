@@ -32,7 +32,10 @@ public class HUD_Manager : MonoBehaviour
         SetUIIncomingMassText();
     }
 
-    private void Update(){ SetUIRemainingStarsText();}
+    private void Update()
+    { 
+        SetUIRemainingStarsText();
+    }
 
     public void SetUICurrentMassText()
     {
