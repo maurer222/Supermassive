@@ -31,7 +31,7 @@ public class Mass : NetworkBehaviour
             incomingMass = currentMass;
             transform.localScale = Vector3.one;
         }
-        if(isLocalPlayer){ FindObjectOfType<HUD_Manager>().SetMassReference(this); }
+        if (isLocalPlayer){ FindObjectOfType<HUD_Manager>().SetMassReference(this); }
     }
 
     private void Update()
@@ -58,7 +58,7 @@ public class Mass : NetworkBehaviour
     {
         Vector3 targetMass = new Vector3(incomingMass, incomingMass, incomingMass);
         Vector3 smoothedMass = Vector3.Lerp(transform.localScale, targetMass * .5f, .01f * Time.deltaTime);
-        currentMass += .7f * Time.deltaTime;
+        currentMass += .9f * Time.deltaTime;
         transform.localScale = smoothedMass;
         OnMassChanged?.Invoke(this, EventArgs.Empty);
     }

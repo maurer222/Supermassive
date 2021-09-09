@@ -18,20 +18,20 @@ public class Gravity : NetworkBehaviour
     {
         if(isClient)
         {
-            RPCGravity();
+            CmdGravity();
         }
     }
 
     [ClientRpc]
     void RPCGravity()
     {
-        CmdGravity();
+        GravityEffect();
     }
 
     [Command]
     void CmdGravity()
     {
-        GravityEffect();
+        RPCGravity();
     }
 
     public void GravityEffect()
@@ -56,11 +56,12 @@ public class Gravity : NetworkBehaviour
                 forceDirection = transform.position - collider.transform.position;
 
                 // apply force on other object towards this object = ((mass1 * mass2)* gravity scaling) / 
-                //                                                   ((distance^2) + 1(to never divide by 0)) * time.dealtatime
+                //                                                   ((distance^2) + 1(to never divide by 0))
+                //                                                   * time.dealtatime
                 collider.GetComponent<Rigidbody>().AddForce(forceDirection.normalized *
-                                                            ((myMass.GetMass() * otherMass.GetMass()) * gravityScale /
-                                                            (Mathf.Pow(Vector3.Distance(transform.position, collider.transform.position), 2) + 1)) *
-                                                            Time.fixedDeltaTime);
+                                ((myMass.GetMass() * otherMass.GetMass()) * gravityScale /
+                                (Mathf.Pow(Vector3.Distance(transform.position, collider.transform.position), 2) + 1)) *
+                                Time.fixedDeltaTime);
 
                 //make sure the object faces this object as it moves inward
                 collider.gameObject.transform.LookAt(gameObject.transform);
