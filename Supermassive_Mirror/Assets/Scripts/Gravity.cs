@@ -78,13 +78,6 @@ public class Gravity : NetworkBehaviour
             myMass.SetIncomingMass(otherMass.GetMass());
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.name.Contains("Antimatter"))
-        {
-            //FindObjectOfType<Canvas>().GetComponent<HUDManager>().UpdateCurrentAntimatter();
-            myMass.SetMass(otherMass.GetMass() * (myMass.GetMass() * .05f));
-            myMass.SetIncomingMass(otherMass.GetMass() * (myMass.GetIncomingMass() * .05f));
-            CmdDestroyStar(collision.gameObject);
-        }
     }
 
     [Command]

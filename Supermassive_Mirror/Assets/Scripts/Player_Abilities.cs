@@ -48,6 +48,11 @@ public class Player_Abilities : NetworkBehaviour
     }
     private void Update()
     {
+        CheckPlayerInput();
+    }
+
+    private void CheckPlayerInput()
+    {
         if (Input.GetKeyDown(abilityKey1) && abilityLevel >= 1)
         {
             UsePlayerAbility(1);
@@ -123,7 +128,7 @@ public class Player_Abilities : NetworkBehaviour
         switch(abilityNumber)
         {
             case 1:
-                //use ability 1
+                PlayerAbility1();
                 Debug.Log("Ability 1 used!");
                 break;
             case 2:
@@ -142,6 +147,26 @@ public class Player_Abilities : NetworkBehaviour
                 Debug.Log("Player Ability not found.");
                 break;
         }
+    }
+
+    private void PlayerAbility1()
+    {
+        
+    }
+
+    private void PlayerAbility2()
+    {
+        
+    }
+
+    private void PlayerAbility3()
+    {
+        
+    }
+
+    private void PlayerAbility4()
+    {
+        
     }
 
     public int GetAbilityLevel()
