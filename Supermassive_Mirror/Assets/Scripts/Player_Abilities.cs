@@ -8,6 +8,9 @@ public class Player_Abilities : NetworkBehaviour
     private Mass myMass;
     private int abilityLevel = 1;
 
+    [SerializeField] GameObject antimatterPrefab;
+    private GameObject antimatterProjectile;
+
     [Header("Mass Breakpoints")]
     [SerializeField] float breakpoint1 = 15;
     [SerializeField] float breakpoint2 = 30;
@@ -151,26 +154,61 @@ public class Player_Abilities : NetworkBehaviour
 
     private void PlayerAbility1()
     {
-        
+        SpawnAntimatterProjectile();
+        MoveAnitmatterProjectile();
+        //time out the projectile
+        //set up projectile pooling
+        //set the cooldown timer
     }
 
     private void PlayerAbility2()
     {
-        
+        //change the material alpha to 0
+        //disable the player collider
+        //set timer for ability duration
+        //set cooldown timer after the duration ends
     }
 
     private void PlayerAbility3()
     {
-        
+        //extra gravity?
     }
 
     private void PlayerAbility4()
     {
-        
+        //
     }
 
-    public int GetAbilityLevel()
+    public void SpawnAntimatterProjectile()
     {
-        return abilityLevel;
+        //the server needs to spawn the object
+        antimatterProjectile = Instantiate(antimatterPrefab,
+                                           gameObject.transform.position + new Vector3(0, 1, 0),
+                                           RotateObjectTowardsMouse(gameObject.transform)) as GameObject;
+        antimatterProjectile.transform.parent = GameObject.Find("Antimatter Projectile Parent").transform;
+        NetworkServer.Spawn(antimatterProjectile);
     }
+
+    private void MoveAnitmatterProjectile()
+    {
+        antimatterProjectile.GetComponent<Rigidbody>().velocity = new Vector3();
+    }
+
+    private Quaternion RotateObjectTowardsMouse(Transform trans)
+    {
+        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(trans.position);
+
+        Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+
+        return Quaternion.Euler(new Vector3(0f, 0f, angle));
+    }
+
+    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    {
+        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+    }
+
+    public int GetAbilityLevel() { return abilityLevel; }
 }

@@ -216,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  antimatterPrefab: {fileID: 513389477840535768, guid: 014837a84627fdd4281d315c2448ca67, type: 3}
   breakpoint1: 15
   breakpoint2: 30
   breakpoint3: 50

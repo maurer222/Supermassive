@@ -8,12 +8,12 @@ public class Antimatter_Effect : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.name.Contains("Player"))
+        if(other.name.Contains("Player")) //&& other object is not your player
         {
             Mass otherMass = other.GetComponent<Mass>();
 
             otherMass.SetIncomingMass(-(antimatterFlatDamage + otherMass.GetMass() * antimatterPercentDamage));
-            otherMass.SetMass        (-(antimatterFlatDamage + otherMass.GetMass() * antimatterPercentDamage));
+            otherMass.SetMass(-(antimatterFlatDamage + otherMass.GetMass() * antimatterPercentDamage));
             Destroy(this.gameObject);
         }
     }

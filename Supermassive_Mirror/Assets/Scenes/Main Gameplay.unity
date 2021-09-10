@@ -454,6 +454,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1424963869799757000, guid: 81e0f2a0b03a71543a4935ac5804f61b, type: 3}
+      propertyPath: sceneId
+      value: 2345249513
+      objectReference: {fileID: 0}
     - target: {fileID: 1221491762504017185, guid: 81e0f2a0b03a71543a4935ac5804f61b, type: 3}
       propertyPath: m_Name
       value: Star Spawner
