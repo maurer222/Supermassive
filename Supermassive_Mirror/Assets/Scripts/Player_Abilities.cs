@@ -135,7 +135,7 @@ public class Player_Abilities : NetworkBehaviour
                 Debug.Log("Ability 1 used!");
                 break;
             case 2:
-                //use ability 2
+                PlayerAbility2();
                 Debug.Log("Ability 2 used!");
                 break;
             case 3:
@@ -163,10 +163,12 @@ public class Player_Abilities : NetworkBehaviour
 
     private void PlayerAbility2()
     {
-        //change the material alpha to 0
+        ReduceObjectAlpha();
+        this.gameObject.GetComponent<Collider>().enabled = false;
         //disable the player collider
         //set timer for ability duration
         //set cooldown timer after the duration ends
+        //you are not affected by player passives
     }
 
     private void PlayerAbility3()
@@ -176,7 +178,9 @@ public class Player_Abilities : NetworkBehaviour
 
     private void PlayerAbility4()
     {
-        //
+        //passively your gravity affects enemy players
+        //Consume enemy player's mass over time
+        //bigger you are the faster you eat
     }
 
     public void SpawnAntimatterProjectile()
@@ -203,6 +207,15 @@ public class Player_Abilities : NetworkBehaviour
         float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
 
         return Quaternion.Euler(new Vector3(0f, 0f, angle));
+    }
+
+    private void ReduceObjectAlpha()
+    {
+        Renderer rend = GetComponent<Renderer>();
+        Color color = rend.material.color;
+
+        color.a = Mathf.Lerp(1f, 0f, 10);
+        rend.material.color = color;
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
