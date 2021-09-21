@@ -6,7 +6,7 @@ using Mirror;
 public class Gravity : NetworkBehaviour
 {
     Mass myMass;
-    [SerializeField] float gravityRangeMultiplier = 2;
+    [SerializeField] float gravityRangeMultiplier = 1.1f;
     [SerializeField] int gravityScale = 500;
 
     private void Start()

@@ -9,10 +9,12 @@ public class Player_Abilities : NetworkBehaviour
 {
     private Mass myMass;
     private int abilityLevel = 1;
-
     [SerializeField] GameObject antimatterPrefab;
+
+    [Header("Ability Tuning")]
     [SerializeField] int projectileSpeed = 500;
     [SerializeField] float antimatterProjectileExpiration = 10f;
+    [SerializeField] int ability3ScaleAmount = 3000;
 
     [Header("Mass Breakpoints")]
     [SerializeField] float breakpoint1 = 15;
@@ -52,10 +54,7 @@ public class Player_Abilities : NetworkBehaviour
         abilityButton3 = GameObject.Find("Ability 3 Button").GetComponent<Button>();
         abilityButton4 = GameObject.Find("Ability 4 Button").GetComponent<Button>();
     }
-    private void Update()
-    {
-        CheckPlayerInput();
-    }
+    private void Update() { CheckPlayerInput(); }
 
     private void CheckPlayerInput()
     {
@@ -140,12 +139,10 @@ public class Player_Abilities : NetworkBehaviour
                 PlayerAbility2();
                 break;
             case 3:
-                //use ability 3
-                Debug.Log("Ability 3 used!");
+                PlayerAbility3();
                 break;
             case 4:
-                //use ability 4
-                Debug.Log("Ability 4 used!");
+                PlayerAbility4();
                 break;
             default:
                 Debug.Log("Player Ability not found.");
@@ -158,7 +155,7 @@ public class Player_Abilities : NetworkBehaviour
         GameObject projectile = SpawnAntimatterProjectile();
         MoveAnitmatterProjectile(projectile);
         StartCoroutine(DestroyProjectileAfterTimer(projectile));
-        //set the cooldown timer
+        StartCoroutine(PutAbilityButtonOnCooldown(ability1CooldownTimeMax, abilityButton1));
     }
 
     private void PlayerAbility2()
@@ -167,22 +164,25 @@ public class Player_Abilities : NetworkBehaviour
         ReducePlayerModelAlpha();
         collider.enabled = false;
         StartCoroutine(EnableColliderAfterTimer(collider));
-        //set cooldown timer after the duration ends
-        //you are not affected by player passives
+        StartCoroutine(PutAbilityButtonOnCooldown(ability2CooldownTimeMax, abilityButton2));
     }
     
     private void PlayerAbility3()
     {
-        //extra gravity?
+        IncreasePlayerGravityScale();
+        StartCoroutine(ResetGravityScaleAfterTimer());
+        StartCoroutine(PutAbilityButtonOnCooldown(ability3CooldownTimeMax, abilityButton3));
     }
 
     private void PlayerAbility4()
     {
+        StartCoroutine(PutAbilityButtonOnCooldown(ability1CooldownTimeMax, abilityButton4));
         //passively your gravity affects enemy players
         //Consume enemy player's mass over time
         //bigger you are the faster you eat
     }
 
+    //*************************| Ability 1 |*************************//
     public GameObject SpawnAntimatterProjectile()
     {
         //the server needs to spawn the object
@@ -210,6 +210,7 @@ public class Player_Abilities : NetworkBehaviour
         NetworkServer.Destroy(projectile);
     }
 
+    //*************************| Ability 2 |*************************//
     private void ReducePlayerModelAlpha()
     {
         Renderer rend = GetComponent<Renderer>();
@@ -225,7 +226,28 @@ public class Player_Abilities : NetworkBehaviour
         collider.enabled = true;
     }
 
+    //*************************| Ability 3 |*************************//
+
+    private void IncreasePlayerGravityScale()
+    {
+        gameObject.GetComponent<Gravity>().SetGravityScale(ability3ScaleAmount);
+    }
+
+    IEnumerator ResetGravityScaleAfterTimer()
+    {
+        yield return new WaitForSeconds(ability3CooldownTimeMax);
+        gameObject.GetComponent<Gravity>().ResetGravityScale();
+    }
+
+    //***************************| Misc |****************  ************//
     public int GetAbilityLevel() { return abilityLevel; }
+
+    IEnumerator PutAbilityButtonOnCooldown(float abilityCooldownTimer, Button abilityButton)
+    {
+        abilityButton.enabled = false;
+        yield return new WaitForSeconds(abilityCooldownTimer);
+        abilityButton.enabled = true;
+    }
 
     private void OnDestroy() { myMass.OnMassChanged -= MyMass_OnMassChanged; }
 }
