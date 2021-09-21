@@ -218,10 +218,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   antimatterPrefab: {fileID: 513389477840535768, guid: 014837a84627fdd4281d315c2448ca67, type: 3}
-  breakpoint1: 15
-  breakpoint2: 30
-  breakpoint3: 50
-  breakpoint4: 100
+  projectileSpeed: 500
+  antimatterProjectileExpiration: 10
+  breakpoint1: 1
+  breakpoint2: 2
+  breakpoint3: 3
+  breakpoint4: 4
   abilityKey1: 49
   abilityKey2: 50
   abilityKey3: 51

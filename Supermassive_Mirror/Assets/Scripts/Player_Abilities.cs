@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using Mirror;
 using UnityEngine.UI;
+using System.Collections;
+using TMPro;
 
 public class Player_Abilities : NetworkBehaviour
 {
@@ -9,7 +11,8 @@ public class Player_Abilities : NetworkBehaviour
     private int abilityLevel = 1;
 
     [SerializeField] GameObject antimatterPrefab;
-    private GameObject antimatterProjectile;
+    [SerializeField] int projectileSpeed = 500;
+    [SerializeField] float antimatterProjectileExpiration = 10f;
 
     [Header("Mass Breakpoints")]
     [SerializeField] float breakpoint1 = 15;
@@ -30,13 +33,13 @@ public class Player_Abilities : NetworkBehaviour
 
     [Header("Ability Cooldown Timers")]
     [SerializeField] float ability1CooldownTimeMax = 2.0f;
-    private          float ability1CooldownTimeRemaining = 0;
+    //private          float ability1CooldownTimeRemaining = 0;
     [SerializeField] float ability2CooldownTimeMax = 20.0f;
-    private          float ability2CooldownTimeRemaining = 0;
+    //private          float ability2CooldownTimeRemaining = 0;
     [SerializeField] float ability3CooldownTimeMax = 45.0f;
-    private          float ability3CooldownTimeRemaining = 0;
+    //private          float ability3CooldownTimeRemaining = 0;
     [SerializeField] float ability4CooldownTimeMax = 60.0f;
-    private          float ability4CooldownTimeRemaining = 0;
+    //private          float ability4CooldownTimeRemaining = 0;
 
     public event EventHandler OnAbilityLevelChanged;
 
@@ -132,11 +135,9 @@ public class Player_Abilities : NetworkBehaviour
         {
             case 1:
                 PlayerAbility1();
-                Debug.Log("Ability 1 used!");
                 break;
             case 2:
                 PlayerAbility2();
-                Debug.Log("Ability 2 used!");
                 break;
             case 3:
                 //use ability 3
@@ -154,23 +155,22 @@ public class Player_Abilities : NetworkBehaviour
 
     private void PlayerAbility1()
     {
-        SpawnAntimatterProjectile();
-        MoveAnitmatterProjectile();
-        //time out the projectile
-        //set up projectile pooling
+        GameObject projectile = SpawnAntimatterProjectile();
+        MoveAnitmatterProjectile(projectile);
+        StartCoroutine(DestroyProjectileAfterTimer(projectile));
         //set the cooldown timer
     }
 
     private void PlayerAbility2()
     {
-        ReduceObjectAlpha();
-        this.gameObject.GetComponent<Collider>().enabled = false;
-        //disable the player collider
-        //set timer for ability duration
+        Collider collider = this.gameObject.GetComponent<Collider>();
+        ReducePlayerModelAlpha();
+        collider.enabled = false;
+        StartCoroutine(EnableColliderAfterTimer(collider));
         //set cooldown timer after the duration ends
         //you are not affected by player passives
     }
-
+    
     private void PlayerAbility3()
     {
         //extra gravity?
@@ -183,33 +183,34 @@ public class Player_Abilities : NetworkBehaviour
         //bigger you are the faster you eat
     }
 
-    public void SpawnAntimatterProjectile()
+    public GameObject SpawnAntimatterProjectile()
     {
         //the server needs to spawn the object
-        antimatterProjectile = Instantiate(antimatterPrefab,
+        GameObject antimatterProjectile = Instantiate(antimatterPrefab,
                                            gameObject.transform.position + new Vector3(0, 1, 0),
-                                           RotateObjectTowardsMouse(gameObject.transform)) as GameObject;
+                                           Quaternion.identity) as GameObject;
         antimatterProjectile.transform.parent = GameObject.Find("Antimatter Projectile Parent").transform;
         NetworkServer.Spawn(antimatterProjectile);
+
+        return antimatterProjectile;
     }
 
-    private void MoveAnitmatterProjectile()
+    private void MoveAnitmatterProjectile(GameObject antimatterProjectile)
     {
-        antimatterProjectile.GetComponent<Rigidbody>().velocity = new Vector3();
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        antimatterProjectile.transform.LookAt(mousePosition);
+        antimatterProjectile.GetComponent<Rigidbody>().AddForce(antimatterProjectile.transform.forward * projectileSpeed);
     }
 
-    private Quaternion RotateObjectTowardsMouse(Transform trans)
+    IEnumerator DestroyProjectileAfterTimer(GameObject projectile)
     {
-        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(trans.position);
 
-        Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
-        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-
-        return Quaternion.Euler(new Vector3(0f, 0f, angle));
+        yield return new WaitForSeconds(antimatterProjectileExpiration);
+        NetworkServer.Destroy(projectile);
     }
 
-    private void ReduceObjectAlpha()
+    private void ReducePlayerModelAlpha()
     {
         Renderer rend = GetComponent<Renderer>();
         Color color = rend.material.color;
@@ -218,10 +219,13 @@ public class Player_Abilities : NetworkBehaviour
         rend.material.color = color;
     }
 
-    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    IEnumerator EnableColliderAfterTimer(Collider collider)
     {
-        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+        yield return new WaitForSeconds(ability2CooldownTimeMax);
+        collider.enabled = true;
     }
 
     public int GetAbilityLevel() { return abilityLevel; }
+
+    private void OnDestroy() { myMass.OnMassChanged -= MyMass_OnMassChanged; }
 }

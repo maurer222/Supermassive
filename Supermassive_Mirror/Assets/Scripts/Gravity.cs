@@ -7,7 +7,7 @@ public class Gravity : NetworkBehaviour
 {
     Mass myMass;
     [SerializeField] float gravityRangeMultiplier = 2;
-    [SerializeField] int gravityScale = 200;
+    [SerializeField] int gravityScale = 500;
 
     private void Start()
     {
@@ -90,5 +90,15 @@ public class Gravity : NetworkBehaviour
     void RPCDestroyStar(GameObject star)
     {
         NetworkServer.Destroy(star.gameObject);
+    }
+
+    public void ResetGravityScale()
+    {
+        gravityScale = 500;
+    }
+
+    public void SetGravityScale(int newScale)
+    {
+        gravityScale = newScale;
     }
 }
