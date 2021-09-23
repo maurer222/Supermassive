@@ -16,7 +16,7 @@ public class Gravity : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if(isClient)
+        if(isClient && isLocalPlayer)
         {
             CmdGravity();
         }
@@ -31,7 +31,7 @@ public class Gravity : NetworkBehaviour
     [Command]
     void CmdGravity()
     {
-        RPCGravity();
+        GravityEffect();
     }
 
     public void GravityEffect()
