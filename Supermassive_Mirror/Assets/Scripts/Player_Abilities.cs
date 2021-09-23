@@ -58,19 +58,19 @@ public class Player_Abilities : NetworkBehaviour
 
     private void CheckPlayerInput()
     {
-        if (Input.GetKeyDown(abilityKey1) && abilityLevel >= 1)
+        if (Input.GetKeyDown(abilityKey1) && abilityLevel >= 1 && isLocalPlayer)
         {
             UsePlayerAbility(1);
         }
-        if (Input.GetKeyDown(abilityKey2) && abilityLevel >= 2)
+        if (Input.GetKeyDown(abilityKey2) && abilityLevel >= 2 && isLocalPlayer)
         {
             UsePlayerAbility(2);
         }
-        if (Input.GetKeyDown(abilityKey3) && abilityLevel >= 3)
+        if (Input.GetKeyDown(abilityKey3) && abilityLevel >= 3 && isLocalPlayer)
         {
             UsePlayerAbility(3);
         }
-        if (Input.GetKeyDown(abilityKey4) && abilityLevel >= 4)
+        if (Input.GetKeyDown(abilityKey4) && abilityLevel >= 4 && isLocalPlayer)
         {
             UsePlayerAbility(4);
         }
@@ -162,7 +162,6 @@ public class Player_Abilities : NetworkBehaviour
     {
         Collider collider = this.gameObject.GetComponent<Collider>();
         ReducePlayerModelAlpha();
-        collider.enabled = false;
         StartCoroutine(EnableColliderAfterTimer(collider));
         StartCoroutine(PutAbilityButtonOnCooldown(ability2CooldownTimeMax, abilityButton2));
     }
@@ -176,7 +175,7 @@ public class Player_Abilities : NetworkBehaviour
 
     private void PlayerAbility4()
     {
-        StartCoroutine(PutAbilityButtonOnCooldown(ability1CooldownTimeMax, abilityButton4));
+        StartCoroutine(PutAbilityButtonOnCooldown(ability4CooldownTimeMax, abilityButton4));
         //passively your gravity affects enemy players
         //Consume enemy player's mass over time
         //bigger you are the faster you eat
@@ -205,7 +204,6 @@ public class Player_Abilities : NetworkBehaviour
 
     IEnumerator DestroyProjectileAfterTimer(GameObject projectile)
     {
-
         yield return new WaitForSeconds(antimatterProjectileExpiration);
         NetworkServer.Destroy(projectile);
     }
@@ -214,14 +212,15 @@ public class Player_Abilities : NetworkBehaviour
     private void ReducePlayerModelAlpha()
     {
         Renderer rend = GetComponent<Renderer>();
-        Color color = rend.material.color;
+        Color color = rend.sharedMaterial.color;
 
         color.a = Mathf.Lerp(1f, 0f, 10);
-        rend.material.color = color;
+        rend.sharedMaterial.color = color;
     }
 
     IEnumerator EnableColliderAfterTimer(Collider collider)
     {
+        collider.enabled = false;
         yield return new WaitForSeconds(ability2CooldownTimeMax);
         collider.enabled = true;
     }
@@ -244,9 +243,11 @@ public class Player_Abilities : NetworkBehaviour
 
     IEnumerator PutAbilityButtonOnCooldown(float abilityCooldownTimer, Button abilityButton)
     {
-        abilityButton.enabled = false;
+        abilityButton.interactable = false;
+        //abilityButton.enabled = false;
         yield return new WaitForSeconds(abilityCooldownTimer);
-        abilityButton.enabled = true;
+        //abilityButton.enabled = true;
+        abilityButton.interactable = true;
     }
 
     private void OnDestroy() { myMass.OnMassChanged -= MyMass_OnMassChanged; }

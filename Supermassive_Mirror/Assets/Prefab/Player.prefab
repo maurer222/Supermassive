@@ -202,7 +202,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   gravityRangeMultiplier: 2
-  gravityScale: 500
+  gravityScale: 1500
 --- !u!114 &-4644806608795661860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +220,7 @@ MonoBehaviour:
   antimatterPrefab: {fileID: 513389477840535768, guid: 014837a84627fdd4281d315c2448ca67, type: 3}
   projectileSpeed: 500
   antimatterProjectileExpiration: 10
+  ability3ScaleAmount: 1500
   breakpoint1: 1
   breakpoint2: 2
   breakpoint3: 3
