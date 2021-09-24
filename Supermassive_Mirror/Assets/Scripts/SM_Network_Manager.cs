@@ -1,6 +1,4 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SM_Network_Manager : NetworkManager
@@ -9,6 +7,8 @@ public class SM_Network_Manager : NetworkManager
     {
         //Run the base logic from the original NetworkManager class
         base.OnClientConnect(conn);
+
+
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -18,4 +18,4 @@ public class SM_Network_Manager : NetworkManager
 
         Debug.Log($"There are now {numPlayers} players connected");
     }
-}
+} 

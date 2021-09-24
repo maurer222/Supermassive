@@ -210,7 +210,7 @@ public class Player_Abilities : NetworkBehaviour
     {
         //the server needs to spawn the object
         GameObject antimatterProjectile = Instantiate(antimatterPrefab,
-                                           gameObject.transform.position + new Vector3(0, 1, 0),
+                                           gameObject.transform.position + CalculateFiringLocationOnPlayer(),
                                            Quaternion.identity) as GameObject;
         antimatterProjectile.transform.parent = GameObject.Find("Antimatter Projectile Parent").transform;
         NetworkServer.Spawn(antimatterProjectile);
@@ -270,6 +270,26 @@ public class Player_Abilities : NetworkBehaviour
         abilityButton.interactable = false;
         yield return new WaitForSeconds(abilityCooldownTimer);
         abilityButton.interactable = true;
+    }
+
+    public Vector3 CalculateFiringLocationOnPlayer()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = 12;
+        float radius = GetComponent<Transform>().localScale.x/2;
+        float angleInDegrees = Mathf.Atan2((mousePosition-transform.position).x, 
+                                           (mousePosition - transform.position).y)
+                                            * Mathf.Rad2Deg;
+
+        //need to make the mouse position reletive to the object?
+
+        Debug.Log($"The transform is {transform.position}");
+        Debug.Log($"The mouse position is {Camera.main.ScreenToWorldPoint(mousePosition)}");
+        Debug.Log($"The angle is {angleInDegrees}");
+        Debug.Log($"The radius is {radius}");
+        //Debug.Log($"The fire position is {new Vector3(x, y, 0)}");
+
+        return new Vector3(0, 0, 0);
     }
 
     private void OnDestroy() { myMass.OnMassChanged -= MyMass_OnMassChanged; }

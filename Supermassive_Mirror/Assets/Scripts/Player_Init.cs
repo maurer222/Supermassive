@@ -5,6 +5,7 @@ public class Player_Init : NetworkBehaviour
 {
     [SerializeField] Material playerMaterial;
     private Vector3 offset;
+    private string playerName = "Missing Name";
 
     void Start()
     {
@@ -18,5 +19,15 @@ public class Player_Init : NetworkBehaviour
             Camera.main.transform.LookAt(this.transform.position);
             Camera.main.transform.parent = this.transform;
         }
+    }
+
+    public void SetPlayerName(string name)
+    {
+        playerName = name;
+    }
+
+    public void SetPlayerSkin(Material newPlayerMaterial)
+    {
+        playerMaterial = newPlayerMaterial;
     }
 }
