@@ -53,7 +53,12 @@ public class Player_Abilities : NetworkBehaviour
         abilityButton2 = GameObject.Find("Ability 2 Button").GetComponent<Button>();
         abilityButton3 = GameObject.Find("Ability 3 Button").GetComponent<Button>();
         abilityButton4 = GameObject.Find("Ability 4 Button").GetComponent<Button>();
+        abilityButton1.onClick.AddListener(delegate { CheckPlayerButtonPress(1); });
+        abilityButton2.onClick.AddListener(delegate { CheckPlayerButtonPress(2); });
+        abilityButton3.onClick.AddListener(delegate { CheckPlayerButtonPress(3); });
+        abilityButton4.onClick.AddListener(delegate { CheckPlayerButtonPress(4); });
     }
+
     private void Update() { CheckPlayerInput(); }
 
     private void CheckPlayerInput()
@@ -76,12 +81,33 @@ public class Player_Abilities : NetworkBehaviour
         }
     }
 
+    private void CheckPlayerButtonPress(int abilityNumber)
+    {
+        if (abilityNumber == 1 && abilityLevel >= 1 && isLocalPlayer)
+        {
+            UsePlayerAbility(1);
+        }
+        if (abilityNumber == 2 && abilityLevel >= 2 && isLocalPlayer)
+        {
+            UsePlayerAbility(2);
+        }
+        if (abilityNumber == 3 && abilityLevel >= 3 && isLocalPlayer)
+        {
+            UsePlayerAbility(3);
+        }
+        if (abilityNumber == 4 && abilityLevel >= 4 && isLocalPlayer)
+        {
+            UsePlayerAbility(4);
+        }
+    }
+
     private void MyMass_OnMassChanged(object sender, System.EventArgs e)
     {
         SetPlayerAbilityLevel();
         SetPlayerAbilityAccess();
         //update HUD
     }
+
     private void SetPlayerAbilityLevel()
     {
         if(myMass.GetMass() <= breakpoint1)
@@ -175,10 +201,8 @@ public class Player_Abilities : NetworkBehaviour
 
     private void PlayerAbility4()
     {
-        StartCoroutine(PutAbilityButtonOnCooldown(ability4CooldownTimeMax, abilityButton4));
-        //passively your gravity affects enemy players
-        //Consume enemy player's mass over time
-        //bigger you are the faster you eat
+        //Your gravity passively steals mass from smaller players over time
+        //with the rate increasing propotional to your total mass
     }
 
     //*************************| Ability 1 |*************************//
@@ -244,9 +268,7 @@ public class Player_Abilities : NetworkBehaviour
     IEnumerator PutAbilityButtonOnCooldown(float abilityCooldownTimer, Button abilityButton)
     {
         abilityButton.interactable = false;
-        //abilityButton.enabled = false;
         yield return new WaitForSeconds(abilityCooldownTimer);
-        //abilityButton.enabled = true;
         abilityButton.interactable = true;
     }
 
