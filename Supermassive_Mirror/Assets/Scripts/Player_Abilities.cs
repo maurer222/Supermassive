@@ -277,19 +277,16 @@ public class Player_Abilities : NetworkBehaviour
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = 12;
         float radius = GetComponent<Transform>().localScale.x/2;
-        float angleInDegrees = Mathf.Atan2((mousePosition-transform.position).x, 
-                                           (mousePosition - transform.position).y)
-                                            * Mathf.Rad2Deg;
+        float angleInRadians = Mathf.Atan2((mousePosition - transform.position).x,
+                                           (mousePosition - transform.position).y);
+        float x = Mathf.Cos(angleInRadians) + .01f;
+        float y = Mathf.Sin(angleInRadians) + .01f;
 
-        //need to make the mouse position reletive to the object?
-
-        Debug.Log($"The transform is {transform.position}");
-        Debug.Log($"The mouse position is {Camera.main.ScreenToWorldPoint(mousePosition)}");
-        Debug.Log($"The angle is {angleInDegrees}");
+        Debug.Log($"The angle is {angleInRadians} in radians");
         Debug.Log($"The radius is {radius}");
-        //Debug.Log($"The fire position is {new Vector3(x, y, 0)}");
+        Debug.Log($"The fire position is {new Vector3(x, y, 0)}");
 
-        return new Vector3(0, 0, 0);
+        return new Vector3(x, y, 0);
     }
 
     private void OnDestroy() { myMass.OnMassChanged -= MyMass_OnMassChanged; }
