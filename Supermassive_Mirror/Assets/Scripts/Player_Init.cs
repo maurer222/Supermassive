@@ -1,10 +1,14 @@
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_Init : NetworkBehaviour
 {
+
     [SerializeField] Material playerMaterial;
     private Vector3 offset;
+
+    [SyncVar]
     private string playerName = "Missing Name";
 
     void Start()
@@ -21,9 +25,11 @@ public class Player_Init : NetworkBehaviour
         }
     }
 
+    [Server]
     public void SetPlayerName(string name)
     {
         playerName = name;
+        GetComponentInChildren<Text>().text = playerName;
     }
 
     public void SetPlayerSkin(Material newPlayerMaterial)

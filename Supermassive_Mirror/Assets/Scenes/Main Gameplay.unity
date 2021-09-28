@@ -355,6 +355,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3911936324855068303, guid: b1a25032650969e41b6cc8f96d2bf39f, type: 3}
+  playerSkin: {fileID: 0}
 --- !u!114 &1217872359 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5455621330134616172, guid: fa1f2ba42d853d941960994985c25b34, type: 3}

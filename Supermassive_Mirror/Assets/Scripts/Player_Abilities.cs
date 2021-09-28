@@ -276,6 +276,7 @@ public class Player_Abilities : NetworkBehaviour
     {
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = 12;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         float radius = GetComponent<Transform>().localScale.x/2;
         float angleInRadians = Mathf.Atan2((mousePosition - transform.position).x,
                                            (mousePosition - transform.position).y);
