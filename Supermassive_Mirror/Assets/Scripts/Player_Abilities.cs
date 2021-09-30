@@ -220,10 +220,13 @@ public class Player_Abilities : NetworkBehaviour
 
     private void MoveAnitmatterProjectile(GameObject antimatterProjectile)
     {
-        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        antimatterProjectile.transform.LookAt(mousePosition);
-        antimatterProjectile.GetComponent<Rigidbody>().AddForce(antimatterProjectile.transform.forward * projectileSpeed);
+        Vector3 mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, 
+                                                              mousePos.y, 
+                                                              -Camera.main.transform.position.z));
+        mousePos.z = transform.position.z;
+        antimatterProjectile.transform.LookAt(mousePos);
+        antimatterProjectile.GetComponent<Rigidbody>().AddForce(mousePos.normalized * projectileSpeed);
     }
 
     IEnumerator DestroyProjectileAfterTimer(GameObject projectile)
@@ -274,18 +277,15 @@ public class Player_Abilities : NetworkBehaviour
 
     public Vector3 CalculateFiringLocationOnPlayer()
     {
+        //is the ATan2 formula inverted? maybe the Cos and Sin funtions are backwards?
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = 12;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         float radius = GetComponent<Transform>().localScale.x/2;
         float angleInRadians = Mathf.Atan2((mousePosition - transform.position).x,
                                            (mousePosition - transform.position).y);
-        float x = Mathf.Cos(angleInRadians) + .01f;
-        float y = Mathf.Sin(angleInRadians) + .01f;
-
-        Debug.Log($"The angle is {angleInRadians} in radians");
-        Debug.Log($"The radius is {radius}");
-        Debug.Log($"The fire position is {new Vector3(x, y, 0)}");
+        float x = Mathf.Sin(angleInRadians) + .01f;
+        float y = Mathf.Cos(angleInRadians) + .01f;
 
         return new Vector3(x, y, 0);
     }

@@ -1,10 +1,10 @@
 using Mirror;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class Player_Init : NetworkBehaviour
 {
-
     [SerializeField] Material playerMaterial;
     private Vector3 offset;
 
@@ -13,7 +13,7 @@ public class Player_Init : NetworkBehaviour
 
     void Start()
     {
-        offset = new Vector3(0, 0, 10f);
+        offset = new Vector3(0, 0, 15f);
 
         if (isLocalPlayer)
         {
@@ -29,9 +29,10 @@ public class Player_Init : NetworkBehaviour
     public void SetPlayerName(string name)
     {
         playerName = name;
-        GetComponentInChildren<Text>().text = playerName;
+        GetComponentInChildren<TMP_Text>().text = playerName;
     }
 
+    [Server]
     public void SetPlayerSkin(Material newPlayerMaterial)
     {
         playerMaterial = newPlayerMaterial;
