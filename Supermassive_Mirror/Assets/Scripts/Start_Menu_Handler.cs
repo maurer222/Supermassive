@@ -8,6 +8,15 @@ public class Start_Menu_Handler : MonoBehaviour
     [SerializeField] GameObject startMenuPlayer;
     [SerializeField] Text inputNameText;
     [SerializeField] TMP_Text inputErrorText;
+    [SerializeField] TMP_Text playerNameText;
+
+    private void Start()
+    {
+        if(playerScriptable.GetName() != null)
+        {
+            playerNameText.text = playerScriptable.GetName();
+        }
+    }
 
     public void OpenSettingsMenu()
     {
@@ -27,12 +36,14 @@ public class Start_Menu_Handler : MonoBehaviour
             inputErrorText.text = $"The name '{playerScriptable.GetName()}' has been accepted!";
             inputErrorText.enabled = true;
             playerScriptable.nameIsValid = true;
+            playerNameText.text = playerScriptable.GetName();
         }
         else
         {
             inputErrorText.text = "Please enter a valid name. (Letters, numbers, spaces and special characters only)";
             inputErrorText.enabled = true;
             playerScriptable.nameIsValid = false;
+            playerNameText.text = "Invalid Name";
         }
     }
 }

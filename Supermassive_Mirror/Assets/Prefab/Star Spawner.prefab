@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  starCount: 5000
+  starCount: 2000
   starPrefab: {fileID: 3911936324855068303, guid: b1a25032650969e41b6cc8f96d2bf39f, type: 3}
   spawnRange: 100
 --- !u!114 &4284007000086505105

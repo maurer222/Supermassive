@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203f84f27f93b4c488ee4391a9bc4f21, type: 3}
   m_Name: Player Lobby Data
   m_EditorClassIdentifier: 
-  playerName: The Bull
+  playerName: 
   playerSkin: {fileID: 2100000, guid: 9e8f944ea7ad6804687aa4ac6b542594, type: 2}
+  nameIsValid: 0

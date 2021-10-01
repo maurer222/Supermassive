@@ -1999,6 +1999,7 @@ MonoBehaviour:
   startMenuPlayer: {fileID: 0}
   inputNameText: {fileID: 394479883}
   inputErrorText: {fileID: 1789187354}
+  playerNameText: {fileID: 1598312502535813895}
 --- !u!1 &6673948902160156784
 GameObject:
   m_ObjectHideFlags: 0

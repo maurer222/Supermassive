@@ -47,16 +47,18 @@ public class Player_Abilities : NetworkBehaviour
 
     private void Start()
     {
-        if (isLocalPlayer) { myMass = GetComponent<Mass>(); }
-        myMass.OnMassChanged += MyMass_OnMassChanged;
-        abilityButton1 = GameObject.Find("Ability 1 Button").GetComponent<Button>();
-        abilityButton2 = GameObject.Find("Ability 2 Button").GetComponent<Button>();
-        abilityButton3 = GameObject.Find("Ability 3 Button").GetComponent<Button>();
-        abilityButton4 = GameObject.Find("Ability 4 Button").GetComponent<Button>();
-        abilityButton1.onClick.AddListener(delegate { CheckPlayerButtonPress(1); });
-        abilityButton2.onClick.AddListener(delegate { CheckPlayerButtonPress(2); });
-        abilityButton3.onClick.AddListener(delegate { CheckPlayerButtonPress(3); });
-        abilityButton4.onClick.AddListener(delegate { CheckPlayerButtonPress(4); });
+        if (isLocalPlayer) { 
+            myMass = GetComponent<Mass>(); 
+            myMass.OnMassChanged += MyMass_OnMassChanged;
+            abilityButton1 = GameObject.Find("Ability 1 Button").GetComponent<Button>();
+            abilityButton2 = GameObject.Find("Ability 2 Button").GetComponent<Button>();
+            abilityButton3 = GameObject.Find("Ability 3 Button").GetComponent<Button>();
+            abilityButton4 = GameObject.Find("Ability 4 Button").GetComponent<Button>();
+            abilityButton1.onClick.AddListener(delegate { CheckPlayerButtonPress(1); });
+            abilityButton2.onClick.AddListener(delegate { CheckPlayerButtonPress(2); });
+            abilityButton3.onClick.AddListener(delegate { CheckPlayerButtonPress(3); });
+            abilityButton4.onClick.AddListener(delegate { CheckPlayerButtonPress(4); });
+        }
     }
 
     private void Update() { CheckPlayerInput(); }
@@ -290,5 +292,5 @@ public class Player_Abilities : NetworkBehaviour
         return new Vector3(x, y, 0);
     }
 
-    private void OnDestroy() { myMass.OnMassChanged -= MyMass_OnMassChanged; }
+    private void OnDestroy() { if(isLocalPlayer) myMass.OnMassChanged -= MyMass_OnMassChanged; }
 }

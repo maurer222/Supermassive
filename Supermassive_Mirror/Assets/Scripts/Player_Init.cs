@@ -23,14 +23,12 @@ public class Player_Init : NetworkBehaviour
         }
     }
 
-    [Server]
     public void SetPlayerName(string name)
     {
         playerName = name;
         GetComponentInChildren<TMP_Text>().text = playerName;
     }
 
-    [Server]
     public void SetPlayerSkin(Material newPlayerMaterial)
     {
         playerMaterial = newPlayerMaterial;
