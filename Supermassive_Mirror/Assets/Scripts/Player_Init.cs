@@ -1,25 +1,23 @@
 using Mirror;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class Player_Init : NetworkBehaviour
 {
     [SerializeField] Material playerMaterial;
-    private Vector3 offset;
-
-    [SyncVar]
-    private string playerName = "Missing Name";
+    [SerializeField] Player_Scriptable playerScriptable;
+    [SerializeField] Vector3 cameraOffset;
+    [SyncVar] private string playerName;
 
     void Start()
     {
-        offset = new Vector3(0, 0, 15f);
-
         if (isLocalPlayer)
         {
+            SetPlayerSkin(playerScriptable.playerSkin);
+            SetPlayerName(playerScriptable.playerName);
             gameObject.GetComponent<Renderer>().material = playerMaterial;
 
-            Camera.main.transform.position = this.transform.position - offset;
+            Camera.main.transform.position = this.transform.position - cameraOffset;
             Camera.main.transform.LookAt(this.transform.position);
             Camera.main.transform.parent = this.transform;
         }

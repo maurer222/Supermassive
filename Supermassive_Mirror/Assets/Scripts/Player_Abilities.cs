@@ -40,7 +40,7 @@ public class Player_Abilities : NetworkBehaviour
     //private          float ability2CooldownTimeRemaining = 0;
     [SerializeField] float ability3CooldownTimeMax = 45.0f;
     //private          float ability3CooldownTimeRemaining = 0;
-    [SerializeField] float ability4CooldownTimeMax = 60.0f;
+    //[SerializeField] float ability4CooldownTimeMax = 60.0f;
     //private          float ability4CooldownTimeRemaining = 0;
 
     public event EventHandler OnAbilityLevelChanged;
