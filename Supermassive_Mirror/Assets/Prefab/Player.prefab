@@ -415,6 +415,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Glowing orb 23
       objectReference: {fileID: 0}
+    - target: {fileID: 1960382934384514, guid: f06da6411a4b5cf49b36b1f079d5d555, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4335391421890740, guid: f06da6411a4b5cf49b36b1f079d5d555, type: 3}
       propertyPath: m_RootOrder
       value: 0

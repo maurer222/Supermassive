@@ -17,7 +17,7 @@ public class SM_Network_Manager : NetworkManager
 
         //Create a scriptable object to transfer data the player selected from the Lobby to the Gameplay scene
         conn.identity.GetComponentInChildren<Player_Init>().SetPlayerName($"Player {numPlayers}");
-        conn.identity.GetComponentInChildren<Player_Init>().SetPlayerSkin(playerSkin);
+        //conn.identity.GetComponentInChildren<Player_Init>().SetPlayerSkin(playerSkin);
 
         Debug.Log($"There are now {numPlayers} players connected");
     }

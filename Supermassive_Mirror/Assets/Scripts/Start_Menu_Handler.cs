@@ -20,12 +20,12 @@ public class Start_Menu_Handler : MonoBehaviour
 
     public void OpenSettingsMenu()
     {
-
+        //Bring up the Settings Menu
     }
 
     public void OpenCreditsMenu()
     {
-
+        //Bring up the Credits Menu
     }
 
     public void SetPlayerName()

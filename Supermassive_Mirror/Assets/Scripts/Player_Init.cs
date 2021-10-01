@@ -13,7 +13,7 @@ public class Player_Init : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            SetPlayerSkin(playerScriptable.playerSkin);
+            SetPlayerSkin(playerScriptable.GetPlayerColor());
             SetPlayerName(playerScriptable.playerName);
             gameObject.GetComponent<Renderer>().material = playerMaterial;
 
@@ -29,8 +29,8 @@ public class Player_Init : NetworkBehaviour
         GetComponentInChildren<TMP_Text>().text = playerName;
     }
 
-    public void SetPlayerSkin(Material newPlayerMaterial)
+    public void SetPlayerSkin(Color playerColor)
     {
-        playerMaterial = newPlayerMaterial;
+        playerMaterial.SetColor("_Color",playerColor);
     }
 }
